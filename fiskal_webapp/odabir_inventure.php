@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-$sql = "USE kasa001_2024";
+$sql = "USE kiboxtecheu_2024";
 $result = $conn->query($sql);
 
 $sql = "SELECT * FROM inventura_robe where IdxStatus_INV = '1'";

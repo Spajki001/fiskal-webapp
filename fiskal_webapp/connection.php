@@ -1,8 +1,8 @@
 <?php
-$servername = "multipos.ddns.net:3307";
-$username = "test";
-$password = "test";
-$dbname = "kasa001_osnovna";
+$servername = "kibox-tech.eu:3306";
+$username = "kibox";
+$password = "Kiboxtech2024";
+$dbname = "kiboxtecheu_osnovna";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

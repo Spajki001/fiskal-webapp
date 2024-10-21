@@ -32,7 +32,7 @@ $amount = htmlspecialchars($amount, ENT_QUOTES, 'UTF-8');
 $userId = htmlspecialchars($userId, ENT_QUOTES, 'UTF-8');
 $currentDate = htmlspecialchars($currentDate, ENT_QUOTES, 'UTF-8');
 $idInventure = htmlspecialchars($idInventure, ENT_QUOTES, 'UTF-8');
-$sql = "USE kasa001_2024";
+$sql = "USE kiboxtecheu_2024";
 $conn->query($sql);
 
 try {
