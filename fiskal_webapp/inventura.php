@@ -25,19 +25,21 @@ $userId = $_SESSION['user_id'] ?? '';
 <body>
     <div class="container">
         <h1>Skeniraj kod artikla</h1>
-        <a href="logout.php" class="btn btn-outline-danger mb-2">logout</a>
+        <a href="logout.php" class="btn btn-outline-danger mb-2">Logout</a>
         <div class="section">
             <div id="my-qr-reader"></div>
         </div>
     </div>
-    <div id="scan-result-modal" class="modal fade" tabindex="-1" aria-labelledby="scanResultLabel" aria-hidden="true">
+    <!-- Modal -->
+    <div class="modal fade" id="scan-result-modal" tabindex="-1" aria-labelledby="scanResultModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="scanResultLabel">Scanned Article</h5>
+                    <h5 class="modal-title" id="scanResultModalLabel">Scan Result</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div id="alert-container"></div>
                     <form id="scan-result-form">
                         <div class="mb-3">
                             <label for="sifraInput" class="form-label">Šifra</label>
@@ -59,15 +61,14 @@ $userId = $_SESSION['user_id'] ?? '';
                             <label for="amountInput" class="form-label">Količina</label>
                             <input type="number" class="form-control" id="amountInput" required>
                         </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
-                    <button type="submit" form="scan-result-form" class="btn btn-primary">Spremi</button>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         const IDInventure = <?php echo json_encode($IDInventure); ?>;
         const Uloga = <?php echo json_encode($Uloga); ?>;

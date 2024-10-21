@@ -33,17 +33,23 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <form action="odabir_inventure.php" method="POST">
-        <select class="form-select" id="IDInventure" name="IDInventure" aria-label="Odabir otvorene inventure">
+        <select class="form-select IDInventure" id="IDInventure" name="IDInventure" aria-label="Odabir otvorene inventure">
             <option selected>Izaberite inventuru</option>
             <?php
+            $sql = "USE kasa001_2024";
+            $result = $conn->query($sql);
+
+            $sql = "SELECT * FROM inventura_robe where IdxStatus_INV = '1'";
+            $result = $conn->query($sql);
+
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['Idx_INV'] . "'>" . $row['Broj_INV'] . "</option>";
+                    echo "<option value='" . $row['ID_INV'] . "'>" . $row['Broj_INV'] . "</option>";
                 }
             }
             ?>
         </select>
-        <select class="form-select" id="Uloga" name="Uloga" aria-label="Odabir uloge">
+        <select class="form-select Uloga" id="Uloga" name="Uloga" aria-label="Odabir uloge">
             <option selected>Izaberite svoju ulogu</option>
             <option value="Upis1">Upis 1</option>
             <option value="Upis2">Upis 2</option>
