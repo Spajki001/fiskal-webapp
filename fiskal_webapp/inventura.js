@@ -115,4 +115,13 @@ domReady(function () {
         { fps: 20, qrbox: 250 }
     );
     htmlscanner.render(onScanSuccess);
+
+    // Reactivate QR scanner when the modal is closed
+    document.querySelector('.btn-close').addEventListener('click', () => {
+        htmlscanner.render(onScanSuccess);
+    });
+
+    document.querySelector('.btn-secondary').addEventListener('click', () => {
+        htmlscanner.render(onScanSuccess);
+    });
 });

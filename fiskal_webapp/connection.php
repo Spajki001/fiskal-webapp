@@ -1,6 +1,6 @@
 <?php
 $servername = "kibox-tech.eu:3306";
-$username = "kibox";
+$username = "kiboxtecheu_kibox";
 $password = "Kiboxtech2024";
 $dbname = "kiboxtecheu_osnovna";
 

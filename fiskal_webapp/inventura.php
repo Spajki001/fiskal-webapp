@@ -12,7 +12,7 @@ $userId = $_SESSION['user_id'] ?? '';
 ?>
 
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="hr"  data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,12 +20,25 @@ $userId = $_SESSION['user_id'] ?? '';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="inventura.css">
-    <title>Skeniranje artikala</title>
+    <title>FISPRO Inventura</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="src/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="src/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="src/favicon-16x16.png">
+    <link rel="manifest" href="src/site.webmanifest">
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Skeniraj kod artikla</h1>
-        <a href="logout.php" class="btn btn-outline-danger mb-2">Logout</a>
+        <h1>Skeniranje artikala</h1>
+        <a href="logout.php" class="btn btn-outline-danger mt-2"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
         <div class="section">
             <div id="my-qr-reader"></div>
         </div>
@@ -35,7 +48,7 @@ $userId = $_SESSION['user_id'] ?? '';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="scanResultModalLabel">Scan Result</h5>
+                    <h5 class="modal-title" id="scanResultModalLabel">Rezultat skeniranja</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -61,20 +74,23 @@ $userId = $_SESSION['user_id'] ?? '';
                             <label for="amountInput" class="form-label">Količina</label>
                             <input type="number" class="form-control" id="amountInput" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Spremi</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="footer">
+        <div>V1.0-beta</div>
+        <div>&copy; 2024 Fiskal d.o.o.</div>
+    </div>
     <script>
         const IDInventure = <?php echo json_encode($IDInventure); ?>;
         const Uloga = <?php echo json_encode($Uloga); ?>;
         const userId = <?php echo json_encode($userId); ?>;
     </script>
-    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="html5-qrcode.js"></script>
     <script src="inventura.js"></script>
 </body>
 </html>
