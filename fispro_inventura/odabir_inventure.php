@@ -6,7 +6,9 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-$sql = "USE kiboxtecheu_2024";
+$kasaDB = $_SESSION['kasaDB'];
+
+$sql = "USE $kasaDB";
 $result = $conn->query($sql);
 
 $sql = "SELECT * FROM inventura_robe where IdxStatus_INV = '1'";
@@ -72,7 +74,7 @@ if (isset($_POST['submit'])) {
                 <select class="form-select" id="IDInventure" name="IDInventure" aria-label="Odabir otvorene inventure" required>
                     <option selected disabled>Izaberite inventuru</option>
                     <?php
-                    $sql = "USE kiboxtecheu_2024";
+                    $sql = "USE $kasaDB";
                     $result = $conn->query($sql);
 
                     $sql = "SELECT * FROM inventura_robe where IdxStatus_INV = '1'";

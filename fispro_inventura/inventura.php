@@ -74,8 +74,8 @@ $userId = $_SESSION['user_id'] ?? '';
                             <label for="amountInput" class="form-label">Količina</label>
                             <input type="number" class="form-control" id="amountInput" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Spremi</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
+                        <button type="submit" class="btn btn-primary me-2"><i class="fa-solid fa-floppy-disk"></i> Spremi</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Odustani</button>
                     </form>
                 </div>
             </div>

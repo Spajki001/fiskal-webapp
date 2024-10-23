@@ -16,6 +16,7 @@ $userId = $data['userId'] ?? '';
 $currentDate = $data['currentDate'] ?? '';
 $idInventure = $_SESSION['IDInventure'] ?? '';
 $uloga = $_SESSION['Uloga'] ?? '';
+$kasaDB = $_SESSION['kasaDB'];
 
 // Log received data for debugging
 error_log("Received data: sifra=$sifra, amount=$amount, userId=$userId, currentDate=$currentDate, idInventure=$idInventure, uloga=$uloga");
@@ -32,7 +33,7 @@ $amount = htmlspecialchars($amount, ENT_QUOTES, 'UTF-8');
 $userId = htmlspecialchars($userId, ENT_QUOTES, 'UTF-8');
 $currentDate = htmlspecialchars($currentDate, ENT_QUOTES, 'UTF-8');
 $idInventure = htmlspecialchars($idInventure, ENT_QUOTES, 'UTF-8');
-$sql = "USE kiboxtecheu_2024";
+$sql = "USE $kasaDB";
 $conn->query($sql);
 
 try {
