@@ -16,8 +16,8 @@ if (isset($_POST['submit'])) {
             $_SESSION['name'] = $row['Ime_DJE'];
             $_SESSION['surname'] = $row['Prezime_DJE'];
             $_SESSION['user_id'] = $row['ID_DJE'];
-
-            header("Location: odabir_inventure.php");
+            $_SESSION['show_modal'] = true;
+            header("Location: index.php");
             exit;
         } else {
             echo "<header>
@@ -33,6 +33,14 @@ if (isset($_POST['submit'])) {
                 </div>
             <header/>";
     }
+}
+
+// Handle AJAX request to set active year
+if (isset($_POST['activeYear'])) {
+    $_SESSION['activeYear'] = $_POST['activeYear'];
+    $_SESSION['kasaDB'] .= $_SESSION['activeYear'];
+    echo json_encode(['success' => true]);
+    exit;
 }
 ?>
 
@@ -88,9 +96,40 @@ if (isset($_POST['submit'])) {
         <div>V1.0-beta</div>
         <div>&copy; 2024 Fiskal d.o.o.</div>
     </div>
+
+    <?php if (isset($_SESSION['show_modal']) && $_SESSION['show_modal'] === true): ?>
+        <!-- Bootstrap Modal -->
+        <div class="modal fade" id="yearModal" tabindex="-1" aria-labelledby="yearModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="yearModalLabel">Unesite aktualnu godinu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="yearForm">
+                            <div class="mb-3">
+                                <label for="activeYear" class="form-label">Upišite aktualnu godinu bez točke</label>
+                                <input type="text" class="form-control" id="activeYear" name="activeYear" placeholder="npr. 2024" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // Show the modal
+            var yearModal = new bootstrap.Modal(document.getElementById('yearModal'));
+            yearModal.show();
+            // Clear the session variable
+            <?php unset($_SESSION['show_modal']); ?>
+        </script>
+        <script src="index.js"></script>
+    <?php endif; ?>
+
     <script>
         const userId = <?php echo json_encode($_SESSION['user_id'] ?? null); ?>;
     </script>
-    <script src="inventura.js"></script>
 </body>
 </html>

@@ -11,8 +11,9 @@ $kasaDB = $_SESSION['kasaDB'];
 $sql = "USE $kasaDB";
 $result = $conn->query($sql);
 
-$sql = "SELECT * FROM inventura_robe where IdxStatus_INV = '1'";
-$result = $conn->query($sql);
+if (!$result) {
+    die("Database selection failed: " . $conn->error);
+}
 
 if (isset($_POST['submit'])) {
     $IDInventure = $_POST['IDInventure'];
@@ -74,15 +75,12 @@ if (isset($_POST['submit'])) {
                 <select class="form-select" id="IDInventure" name="IDInventure" aria-label="Odabir otvorene inventure" required>
                     <option selected disabled>Izaberite inventuru</option>
                     <?php
-                    $sql = "USE $kasaDB";
-                    $result = $conn->query($sql);
-
                     $sql = "SELECT * FROM inventura_robe where IdxStatus_INV = '1'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
-                            echo "<option value='" . $row['ID_INV'] . "'>" . $row['Broj_INV'] . "</option>";
+                            echo "<option value='" . $row['ID_INV'] . "'>INV - " . $row['Broj_INV'] . " - Skladište ". $row['ID_SKLAD'] ."</option>";
                         }
                     }
                     ?>
@@ -106,5 +104,14 @@ if (isset($_POST['submit'])) {
         <div>V1.0-beta</div>
         <div>&copy; 2024 Fiskal d.o.o.</div>
     </div>
+    <script>
+        // Prevent back navigation to the login page
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, null, window.location.href);
+            };
+        }
+    </script>
 </body>
 </html>

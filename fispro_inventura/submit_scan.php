@@ -16,7 +16,7 @@ $userId = $data['userId'] ?? '';
 $currentDate = $data['currentDate'] ?? '';
 $idInventure = $_SESSION['IDInventure'] ?? '';
 $uloga = $_SESSION['Uloga'] ?? '';
-$kasaDB = $_SESSION['kasaDB'];
+$kasaDB = $_SESSION['kasaDB'] ?? '';
 
 // Log received data for debugging
 error_log("Received data: sifra=$sifra, amount=$amount, userId=$userId, currentDate=$currentDate, idInventure=$idInventure, uloga=$uloga");
