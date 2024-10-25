@@ -21,7 +21,7 @@ $kasaDB = $_SESSION['kasaDB'];
     <link rel="icon" type="image/png" sizes="32x32" href="src/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="src/favicon-16x16.png">
     <link rel="manifest" href="src/site.webmanifest">
-    <title>Document</title>
+    <title>FISPRO Analytics</title>
     <style>
         .footer {
             position: absolute;
@@ -43,30 +43,48 @@ $kasaDB = $_SESSION['kasaDB'];
     <div class="container mt-5">
         <div class="jumbotron text-center">
             <h1 class="display-4">Pregled zaključaka</h1>
+            <a href="pregled_prometa.php" class="btn btn-primary mt-3 me-2"><i class="fa-solid fa-money-bill-trend-up"></i> Pregled prometa</a>
+            <a href="stolovi.php" class="btn btn-secondary mt-3 me-2"><i class="fa-solid fa-receipt"></i> Pregled stolova</a>
+            <a href="logout.php" class="btn btn-outline-danger mt-3"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
         </div>
         <div class="row table-container">
             <?php
                 $sql = "USE $kasaDB";
                 $result = $conn->query($sql);
-                echo "<div class='table-responsive'>";
+                $sql = "SELECT * FROM zakljucak_blagajne";
+                $result = $conn->query($sql);
+
+                echo "<div class='table-responsive mt-3'>";
                 echo "<table class='table table-striped table-hover'>";
                 echo "<thead><tr>
-                        <th>ID_KD</th>
                         <th>Broj_KD</th>
                         <th>Datum_KD</th>
+                        <th>ID_SKLAD</th>
+                        <th>RacOd_KD</th>
+                        <th>RacDo_KD</th>
+                        <th>Ukupno_KD</th>
+                        <th>Porez_KD</th>
+                        <th>Porez1_KD</th>
+                        <th>SystemDate</th>
                     </tr></thead>";
                 echo "<tbody>";
                 if ($result->num_rows > 0){
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                                <td>" . $row['ID_KD'] . "</td>
                                 <td>" . $row['Broj_KD'] . "</td>
                                 <td>" . $row['Datum_KD'] . "</td>
+                                <td>" . $row['ID_SKLAD'] . "</td>
+                                <td>" . $row['RacOd_KD'] . "</td>
+                                <td>" . $row['RacDo_KD'] . "</td>
+                                <td>" . $row['Ukupno_KD'] . "</td>
+                                <td>" . $row['Porez_KD'] . "</td>
+                                <td>" . $row['Porez1_KD'] . "</td>
+                                <td>" . $row['SystemDate'] . "</td>
                             </tr>";
                     }
                     echo "</tbody></table></div>";
                 } else {
-                    echo "<h3 class='display-6'>Nema podataka</h1>";
+                    echo "<h3 class='display-6 text-align-center'>Nema podataka</h1>";
                     echo "</tbody></table></div>";
                 }
             ?>
@@ -76,6 +94,5 @@ $kasaDB = $_SESSION['kasaDB'];
         <div>V1.0-beta</div>
         <div>&copy; 2024 Fiskal d.o.o.</div>
     </div>
-    <script src="inventura.js"></script>
 </body>
 </html>

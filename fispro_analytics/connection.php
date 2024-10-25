@@ -7,8 +7,19 @@ $credentials = json_decode($jsonString, true);
 $servername = $credentials['servername'];
 $username = $credentials['username'];
 $password = $credentials['password'];
-$prijavaDB = $credentials['prijavaDB'];
-$kasaDB = $credentials['kasaDB'];
+$dbPrefix_0 = $credentials['dbPrefix_0'];
+$dbPrefix_1 = $credentials['dbPrefix_1'];
+$id_programa = $credentials['id_programa'];
+
+if ($id_programa === "0") {
+    $prijavaDB = $dbPrefix_0 . "osnovna";
+    $kasaDBPrefix = $dbPrefix_0 . "mat";
+} else if ($id_programa === "1") {
+    $prijavaDB = $dbPrefix_1 . "osnovna";
+    $kasaDBPrefix = $dbPrefix_1;
+} else {
+    die("Invalid id_programa");
+}
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $prijavaDB);
@@ -19,10 +30,6 @@ if ($conn->connect_error) {
 }
 
 session_start();
-
-$sql = "USE $prijavaDB";
-$conn->query($sql);
-
 $_SESSION['prijavaDB'] = $prijavaDB;
-$_SESSION['kasaDB'] = $kasaDB;
+$_SESSION['kasaDBPrefix'] = $kasaDBPrefix;
 ?>
