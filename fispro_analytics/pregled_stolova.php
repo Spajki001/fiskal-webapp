@@ -22,69 +22,50 @@ $kasaDB = $_SESSION['kasaDB'];
     <link rel="icon" type="image/png" sizes="16x16" href="src/favicon-16x16.png">
     <link rel="manifest" href="src/site.webmanifest">
     <title>FISPRO Analytics</title>
-    <style>
-        .footer {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-            text-align: right;
-        }
-        h1 {
-            font-weight: 500 !important;
-        }
-        td, th {
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
+    <link rel="stylesheet" href="zakljucci.css">
 </head>
 <body>
     <div class="container mt-5">
         <div class="jumbotron text-center">
-            <h1 class="display-4">Pregled prometa</h1>
-            <a href="zakljucci.php" class="btn btn-primary mt-3 me-2"><i class="fa-solid fa-cash-register"></i> Pregled zaključaka</a>
-            <a href="stolovi.php" class="btn btn-secondary mt-3 me-2"><i class="fa-solid fa-receipt"></i> Pregled stolova</a>
+            <h1 class="display-4">Pregled otvorenih stolova</h1>
+            <a href="zakljucci.php" class="btn btn-primary mt-3 me-2"><i class="fa-solid fa-receipt"></i> Pregled zaključaka</a>
             <a href="logout.php" class="btn btn-outline-danger mt-3"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
         </div>
         <div class="row table-container">
             <?php
                 $sql = "USE $kasaDB";
                 $result = $conn->query($sql);
-                $sql = "SELECT * FROM zakljucak_blagajne";
+                $sql = "SELECT ID_STOL, SUM(Cijena_MPR) as Ukupno_MPR FROM stol_artikli GROUP BY ID_STOL";
                 $result = $conn->query($sql);
 
                 echo "<div class='table-responsive mt-3'>";
                 echo "<table class='table table-striped table-hover'>";
                 echo "<thead><tr>
-                        <th>Broj_KD</th>
-                        <th>Datum_KD</th>
-                        <th>ID_SKLAD</th>
-                        <th>RacOd_KD</th>
-                        <th>RacDo_KD</th>
-                        <th>Ukupno_KD</th>
-                        <th>Porez_KD</th>
-                        <th>Porez1_KD</th>
-                        <th>SystemDate</th>
+                        <th>ID_STOL</th>
+                        <th>Pregled</th>
+                        <th>Ukupno_MPR</th>
                     </tr></thead>";
                 echo "<tbody>";
                 if ($result->num_rows > 0){
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                                <td>" . $row['Broj_KD'] . "</td>
-                                <td>" . $row['Datum_KD'] . "</td>
-                                <td>" . $row['ID_SKLAD'] . "</td>
-                                <td>" . $row['RacOd_KD'] . "</td>
-                                <td>" . $row['RacDo_KD'] . "</td>
-                                <td>" . $row['Ukupno_KD'] . "</td>
-                                <td>" . $row['Porez_KD'] . "</td>
-                                <td>" . $row['Porez1_KD'] . "</td>
-                                <td>" . $row['SystemDate'] . "</td>
+                                <td>" . $row['ID_STOL'] . "</td>
+                                <td> <a
+                                    name='stolDetaljno'
+                                    id='stolDetaljno'
+                                    class='btn btn-primary'
+                                    href='stol_detaljno.php?ID_STOL=" . $row['ID_STOL'] . "'
+                                    role='button'
+                                    ><i class='fa-solid fa-receipt'></i> Pregled</a>
+                                </td>
+                                <td>" . $row['Ukupno_MPR'] . " €</td>
                             </tr>";
                     }
                     echo "</tbody></table></div>";
                 } else {
-                    echo "<h3 class='display-6 text-align-center'>Nema podataka</h1>";
+                    echo "<div class='jumbotron text-center'>
+                    <h3 class='display-6 text-align-center'>Nema podataka</h3>
+                    </div>";
                     echo "</tbody></table></div>";
                 }
             ?>
