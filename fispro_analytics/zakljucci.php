@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
     <div class="container mt-5">
         <div class="jumbotron text-center">
             <h1 class="display-4">Pregled zaključaka</h1>
-            <a href="pregled_stolova.php" class="btn btn-primary mt-3 me-2"><i class="fa-solid fa-receipt"></i> Pregled stolova</a>
+            <a href="pregled_stolova.php" class="btn btn-primary mt-3 me-2"><i class="fa-solid fa-mug-hot"></i> Pregled stolova</a>
             <a href="logout.php" class="btn btn-outline-danger mt-3"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
         </div>
         <div class="row mt-4">
@@ -120,7 +120,6 @@ if ($result->num_rows > 0) {
                         echo "<tr>
                                 <td>" . $row['ID_KD'] . "</td>
                                 <td> <a
-                                    name='pregledRacuna'
                                     id='pregledRacuna'
                                     class='btn btn-primary'
                                     href='pregled_racuna.php?ID_KD=" . $row['ID_KD'] . "'
@@ -136,13 +135,12 @@ if ($result->num_rows > 0) {
                                 <td>" . $row['Porez1_KD'] . " €</td>
                             </tr>";
                     }
-                    echo "</tbody></table></div>";
                 } else {
                     echo "<div class='jumbotron text-center'>
                     <h3 class='display-6 text-align-center'>Nema podataka</h3>
                     </div>";
-                    echo "</tbody></table></div>";
                 }
+            echo "</tbody></table></div>";
             ?>
         </div>
     </div>

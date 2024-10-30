@@ -112,7 +112,7 @@ if (isset($_POST['activeYear'])) {
                                 <label for="activeYear" class="form-label">Upišite aktualnu godinu bez točke</label>
                                 <input type="text" class="form-control" id="activeYear" name="activeYear" placeholder="npr. 2024" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Submit</button>
                         </form>
                     </div>
                 </div>

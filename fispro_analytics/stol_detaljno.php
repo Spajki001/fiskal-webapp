@@ -31,7 +31,7 @@ $ID_STOL = $_GET['ID_STOL'] ?? null;
         <div class="jumbotron text-center">
             <h1 class="display-4">Pregled stola</h1>
             <a href="zakljucci.php" class="btn btn-primary mt-3 me-2"><i class="fa-solid fa-cash-register"></i> Pregled zaključaka</a>
-            <a href="pregled_stolova.php" class="btn btn-secondary mt-3 me-2"><i class="fa-solid fa-receipt"></i> Pregled stolova</a>
+            <a href="pregled_stolova.php" class="btn btn-secondary mt-3 me-2"><i class="fa-solid fa-mug-hot"></i> Pregled stolova</a>
             <a href="logout.php" class="btn btn-outline-danger mt-3"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
         </div>
         <div class="row table-container mt-3">
