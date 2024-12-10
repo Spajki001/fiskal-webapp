@@ -1,4 +1,0 @@
-.venv/
-backend/backend/__pycache__/
-backend/fispro_analytics/__pycache__/
-backend/fispro_analytics/migrations/__pycache__/
