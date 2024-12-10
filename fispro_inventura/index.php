@@ -5,6 +5,9 @@ if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    /*User_DJE
+    Sifra_DJE*/
+
     $sql = "SELECT * FROM meni_djelatnik WHERE UserName = '$username'";
     $result = $conn->query($sql);
 
