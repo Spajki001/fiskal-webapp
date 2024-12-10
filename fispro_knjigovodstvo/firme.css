@@ -1,0 +1,46 @@
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.8rem;
+    text-align: right;
+    padding: 10px;
+}
+h1 {
+    font-weight: 500 !important;
+}
+td, th {
+    text-align: center;
+    vertical-align: middle;
+}
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+#searchSuggestions {
+    border-radius: 5px 5px 5px 5px !important;
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    .row.mt-3 .col-12.d-flex.justify-content-between.align-items-center {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .row.mt-3 .col-12.d-flex.justify-content-between.align-items-center .btn,
+    .row.mt-3 .col-12.d-flex.justify-content-between.align-items-center .jumbotron {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}

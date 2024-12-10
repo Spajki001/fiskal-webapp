@@ -1,0 +1,10 @@
+[10-Dec-2024 15:27:08 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\fispro_knjigovodstvo\update_partner.php:42
+Stack trace:
+#0 C:\xampp\htdocs\fispro_knjigovodstvo\update_partner.php(42): mysqli_stmt->bind_param('sssssiissssi', 'Firme', 'Testa', '20202020200', 'ne', '1500.59', '2', '10', 'dvojno', 'ne', 'ne', 'e-ra\xC4\x8Dun', 'AD d.o.o.', '10')
+#1 {main}
+  thrown in C:\xampp\htdocs\fispro_knjigovodstvo\update_partner.php on line 42
+[10-Dec-2024 15:27:10 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\fispro_knjigovodstvo\update_partner.php:42
+Stack trace:
+#0 C:\xampp\htdocs\fispro_knjigovodstvo\update_partner.php(42): mysqli_stmt->bind_param('sssssiissssi', 'Firme', 'Testa', '20202020200', 'ne', '1500.59', '2', '10', 'dvojno', 'ne', 'ne', 'e-ra\xC4\x8Dun', 'AD d.o.o.', '10')
+#1 {main}
+  thrown in C:\xampp\htdocs\fispro_knjigovodstvo\update_partner.php on line 42
