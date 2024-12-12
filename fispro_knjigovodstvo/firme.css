@@ -26,6 +26,10 @@ body {
     flex: 1;
 }
 
+.table-responsive {
+    overflow-x: auto;
+}
+
 #searchSuggestions {
     border-radius: 5px 5px 5px 5px !important;
     overflow: hidden;

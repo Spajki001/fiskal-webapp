@@ -27,6 +27,23 @@ $(document).ready(function() {
             }
         }
 
+        // Adjust column widths to fit content
+        var colWidths = [];
+        for (var C = range.s.c; C <= range.e.c; ++C) {
+            var maxWidth = 10; // Minimum column width
+            for (var R = range.s.r; R <= range.e.r; ++R) {
+                var cell_address = {c: C, r: R};
+                var cell_ref = XLSX.utils.encode_cell(cell_address);
+                var cell = ws[cell_ref];
+                if (cell && cell.v) {
+                    var cellValue = cell.v.toString();
+                    maxWidth = Math.max(maxWidth, cellValue.length);
+                }
+            }
+            colWidths.push({wch: maxWidth});
+        }
+        ws['!cols'] = colWidths;
+
         // Write the workbook and trigger the download
         XLSX.writeFile(wb, 'Pregled_partnera.xlsx');
         console.log('Data exported!');
@@ -59,13 +76,28 @@ $(document).ready(function() {
         const formData = new FormData($('#addFirmForm')[0]);
 
         // Send AJAX request to add the firm
-        fetch('add_firm.php', {
+        fetch('add_partner.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // After successfully adding a partner, save the partner history
+                fetch('save_partner_history.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        console.error('Error saving partner history:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving partner history:', error);
+                });
+
                 location.reload();
             } else {
                 alert('Greška pri dodavanju partnera: ' + data.message);
@@ -274,6 +306,21 @@ $(document).ready(function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // After successfully updating the partner, save the partner history
+                fetch('save_partner_history.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        console.error('Error saving partner history:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving partner history:', error);
+                });
+
                 location.reload();
             } else {
                 alert('Greška pri uređivanju partnera: ' + data.message);
@@ -281,6 +328,48 @@ $(document).ready(function() {
         })
         .catch(error => {
             console.error('Greška pri uređivanju partnera:', error);
+        });
+    });
+
+    // Event listener for the "Povijest promjena" button
+    $('#historyPartner').click(function() {
+        const partnerId = $('#saveEditPartner').data('id');
+
+        // Close the edit partner modal
+        $('#editPartnerModal').modal('hide');
+
+        // Fetch partner history
+        fetch(`get_partner_history.php?partner_id=${partnerId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const partnerHistoryTableBody = $('#partnerHistoryTableBody');
+                partnerHistoryTableBody.empty();
+                data.history.forEach(entry => {
+                    partnerHistoryTableBody.append(`
+                        <tr>
+                            <td>${entry.Naziv}</td>
+                            <td>${entry.Adresa}</td>
+                            <td>${entry.OIB}</td>
+                            <td>${entry.PDV}</td>
+                            <td>${entry.Iznos_naknade}</td>
+                            <td>${entry.Vrsta_knjigovodstva}</td>
+                            <td>${entry.Placa}</td>
+                            <td>${entry.Drugi_dohodak}</td>
+                            <td>${entry.Dodatne_usluge}</td>
+                            <td>${entry.Fakturira}</td>
+                            <td>${entry.Datum_promjene}</td>
+                        </tr>
+                    `);
+                });
+                // Show the partner history modal
+                $('#partnerHistoryModal').modal('show');
+            } else {
+                alert('Greška pri dohvaćanju povijesti partnera: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Greška pri dohvaćanju povijesti partnera:', error);
         });
     });
 
@@ -376,8 +465,8 @@ $(document).ready(function() {
 
     function filterTable(query) {
         $('table tbody tr').each(function() {
-            let name = $(this).find('td:nth-child(2)').text().toLowerCase();
-            let oib = $(this).find('td:nth-child(4)').text().toLowerCase();
+            let name = $(this).find('td:nth-child(1)').text().toLowerCase(); // Adjusted to match the correct column index
+            let oib = $(this).find('td:nth-child(3)').text().toLowerCase(); // Adjusted to match the correct column index
             if (name.includes(query) || oib.includes(query)) {
                 $(this).show();
             } else {
@@ -388,7 +477,7 @@ $(document).ready(function() {
 
     function filterTableByOIB(oib) {
         $('table tbody tr').each(function() {
-            let rowOIB = $(this).find('td:nth-child(4)').text().toLowerCase();
+            let rowOIB = $(this).find('td:nth-child(3)').text().toLowerCase(); // Adjusted to match the correct column index
             if (rowOIB === oib.toLowerCase()) {
                 $(this).show();
             } else {

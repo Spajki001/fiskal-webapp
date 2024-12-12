@@ -84,7 +84,6 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Naziv</th>
                             <th>Adresa</th>
                             <th>OIB</th>
@@ -106,12 +105,11 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                             $result->data_seek(0); // Reset result pointer to the beginning
                             while ($row = $result->fetch_assoc()) {
                                 if ($_SESSION['uloga'] == 'admin' || $_SESSION['uloga'] == 'firma') {
-                                    $sql = "SELECT Prezime FROM meni_korisnik WHERE id = $row[referent_id]";
+                                    $sql = "SELECT Ime, Prezime FROM meni_korisnik WHERE id = $row[referent_id]";
                                     $referent_result = $conn->query($sql);
                                     $row_ref = $referent_result->fetch_assoc();
                                 }
                                 echo "<tr>
-                                        <td>" . $row['ID'] . "</td>
                                         <td>" . $row['Naziv'] . "</td>
                                         <td>" . $row['Adresa'] . "</td>
                                         <td>" . $row['OIB'] . "</td>
@@ -123,7 +121,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                                         <td>" . $row['Dodatne_usluge'] . "</td>
                                         <td>" . $row['Fakturira'] . "</td>";
                                         if ($_SESSION['uloga'] == 'admin' || $_SESSION['uloga'] == 'firma') {
-                                            echo "<td>" . $row_ref['Prezime'] . "</td>";
+                                            echo "<td>" . $row_ref['Ime'] . "<br>" . $row_ref['Prezime'] . "</td>";
                                         }
                                         if ($_SESSION['uloga'] == 'admin' || $_SESSION['uloga'] == 'referent') {
                                             echo "<td class='text-center'>
@@ -155,7 +153,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
     </div>
 
     <!-- Add User Modal -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -201,7 +199,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
         </div>
     </div>
     <!-- Add Partner Modal -->
-    <div class="modal fade" id="addFirmModal" tabindex="-1" aria-labelledby="addFirmModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addFirmModal" tabindex="-1" aria-labelledby="addFirmModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -300,7 +298,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
         </div>
     </div>
     <!-- Referents Modal -->
-    <div class="modal fade" id="referentsModal" tabindex="-1" aria-labelledby="referentsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="referentsModal" tabindex="-1" aria-labelledby="referentsModalLabel">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -308,25 +306,27 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Ime</th>
-                                <th>Prezime</th>
-                                <th>OIB</th>
-                                <th>Akcije</th>
-                            </tr>
-                        </thead>
-                        <tbody id="referentsTableBody">
-                            <!-- Referents will be loaded here via AJAX -->
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ime</th>
+                                    <th>Prezime</th>
+                                    <th>OIB</th>
+                                    <th>Akcije</th>
+                                </tr>
+                            </thead>
+                            <tbody id="referentsTableBody">
+                                <!-- Referents will be loaded here via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Edit Referent Modal -->
-    <div class="modal fade" id="editReferentModal" tabindex="-1" aria-labelledby="editReferentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editReferentModal" tabindex="-1" aria-labelledby="editReferentModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -371,7 +371,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
         </div>
     </div>
     <!-- Filter Modal -->
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -452,7 +452,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
         </div>
     </div>
     <!-- Edit Partner Modal -->
-    <div class="modal fade" id="editPartnerModal" tabindex="-1" aria-labelledby="editPartnerModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editPartnerModal" tabindex="-1" aria-labelledby="editPartnerModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -546,9 +546,45 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer d-flex justify-content-between">
                     <button type="button" class="btn btn-primary" id="saveEditPartner"><i class="fa-solid fa-floppy-disk"></i> Spremi promjene</button>
+                    <button type="button" class="btn btn-outline-secondary" id="historyPartner"><i class="fa-solid fa-clock"></i> Povijest promjena</button>
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i> Odustani</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner History Modal -->
+    <div class="modal fade" id="partnerHistoryModal" tabindex="-1" aria-labelledby="partnerHistoryModalLabel">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="partnerHistoryModalLabel">Povijest promjena partnera</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Naziv</th>
+                                    <th>Adresa</th>
+                                    <th>OIB</th>
+                                    <th>PDV</th>
+                                    <th>Iznos naknade</th>
+                                    <th>Vrsta knjigovodstva</th>
+                                    <th>Plaća</th>
+                                    <th>Drugi dohodak</th>
+                                    <th>Dodatne usluge</th>
+                                    <th>Fakturira</th>
+                                    <th>Datum promjene</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partnerHistoryTableBody">
+                                <!-- Partner history will be loaded here via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
