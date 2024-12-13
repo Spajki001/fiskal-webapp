@@ -401,7 +401,6 @@ $(document).ready(function() {
         data.forEach(row => {
             tableBody.append(`
                 <tr>
-                    <td>${row.ID}</td>
                     <td>${row.Naziv}</td>
                     <td>${row.Adresa}</td>
                     <td>${row.OIB}</td>

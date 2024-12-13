@@ -104,6 +104,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <?php
                             $result->data_seek(0); // Reset result pointer to the beginning
                             while ($row = $result->fetch_assoc()) {
+                                $row_ref = [];
                                 if ($_SESSION['uloga'] == 'admin' || $_SESSION['uloga'] == 'firma') {
                                     $sql = "SELECT Ime, Prezime FROM meni_korisnik WHERE id = $row[referent_id]";
                                     $referent_result = $conn->query($sql);
@@ -121,7 +122,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                                         <td>" . $row['Dodatne_usluge'] . "</td>
                                         <td>" . $row['Fakturira'] . "</td>";
                                         if ($_SESSION['uloga'] == 'admin' || $_SESSION['uloga'] == 'firma') {
-                                            echo "<td>" . $row_ref['Ime'] . "<br>" . $row_ref['Prezime'] . "</td>";
+                                            echo "<td>" . $row_ref['Prezime'] . "</td>";
                                         }
                                         if ($_SESSION['uloga'] == 'admin' || $_SESSION['uloga'] == 'referent') {
                                             echo "<td class='text-center'>
@@ -383,7 +384,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="pdv" class="form-label">PDV</label>
                             <select class="form-select" id="pdv" name="pdv">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <option value="da">Da</option>
                                 <option value="ne">Ne</option>
                             </select>
@@ -392,7 +393,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="referent" class="form-label">Referent</label>
                             <select class="form-select" id="referent" name="referent">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <?php 
                                     $referents->data_seek(0); // Reset result pointer to the beginning
                                     while ($referentFilter = $referents->fetch_assoc()) { 
@@ -405,7 +406,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="vrstaKnjigovodstva" class="form-label">Vrsta knjigovodstva</label>
                             <select class="form-select" id="vrstaKnjigovodstva" name="vrstaKnjigovodstva">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <option value="jednostavno">Jednostavno</option>
                                 <option value="dvojno">Dvojno</option>
                                 <option value="paušal">Paušal</option>
@@ -415,7 +416,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="placa" class="form-label">Plaća</label>
                             <select class="form-select" id="placa" name="placa">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <option value="da">Da</option>
                                 <option value="ne">Ne</option>
                             </select>
@@ -423,7 +424,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="drugiDohodak" class="form-label">Drugi dohodak</label>
                             <select class="form-select" id="drugiDohodak" name="drugiDohodak">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <option value="da">Da</option>
                                 <option value="ne">Ne</option>
                             </select>
@@ -431,7 +432,7 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="dodatneUsluge" class="form-label">Dodatne usluge</label>
                             <select class="form-select" id="dodatneUsluge" name="dodatneUsluge">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <option value="nema">Nema</option>
                                 <option value="e-račun">E-račun</option>
                             </select>
@@ -439,13 +440,13 @@ $referents = $conn->query("SELECT id, Ime, Prezime FROM meni_korisnik WHERE Ulog
                         <div class="mb-3">
                             <label for="fakturira" class="form-label">Fakturira</label>
                             <select class="form-select" id="fakturira" name="fakturira">
-                                <option value="">--Select--</option>
+                                <option value="">--Odaberi--</option>
                                 <option value="Agencija Dast">Agencija Dast</option>
                                 <option value="Agencija">Agencija</option>
                                 <option value="Ad d.o.o.">Ad d.o.o.</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        <button type="submit" class="btn btn-primary">Primjeni filtere</button>
                     </form>
                 </div>
             </div>
